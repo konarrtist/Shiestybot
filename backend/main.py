@@ -64,7 +64,9 @@ async def on_message(message):
             embed.add_field(name="📦 DETECTED", value="\n".join(found_items) or "None")
             await message.channel.send(embed=embed)
             
-        except Exception as e:
-            await message.channel.send("❌ Error reading stash icons.")
+except Exception as e:
+        await message.channel.send("❌ Error reading stash icons.")
 
+# This line MUST be at the very left (no spaces/tabs before it)
+bot.run(os.getenv('DISCORD_TOKEN'))
 bot.run(os.getenv('DISCORD_TOKEN'))
