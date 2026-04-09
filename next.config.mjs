@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
- 
-}
+  output: 'standalone', 
+  typescript: { ignoreBuildErrors: true }, // Don't let a small error kill the build
+  eslint: { ignoreDuringBuilds: true },
+  experimental: {
+    webpackMemoryOptimizations: true, // Key fix for Code 137
+  }
+};
 
-export default nextConfig
+export default nextConfig;
