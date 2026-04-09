@@ -64,7 +64,7 @@ export default function LoginPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Sign in to Bunkerfy</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Sign in to shiesty</h1>
               <p className="text-slate-300 text-sm sm:text-base max-w-md mx-auto">
                 Access the secure Arc Raiders marketplace with escrow protection and verified traders.
               </p>
@@ -87,7 +87,7 @@ export default function LoginPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="trader@bunkerfy.top"
+                    placeholder="trader@shiesty.top"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
               <div className="text-center">
                 <p className="text-sm text-slate-300">
-                  New to Bunkerfy?{" "}
+                  New to shiesty?{" "}
                   <Link href="/auth/register" className="text-[#00d9ff] hover:underline">
                     Create an account
                   </Link>
@@ -160,7 +160,7 @@ export default function LoginPage() {
           </Card>
 
           <p className="text-center text-xs text-slate-400 px-4">
-            Continuing means you agree to the trading safety rules of Bunkerfy.
+            Continuing means you agree to the trading safety rules of shiesty.
           </p>
         </div>
       </div>

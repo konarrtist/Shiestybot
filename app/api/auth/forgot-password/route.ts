@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
     // Generate password reset link using Supabase
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://bunkerfy.top"}/auth/reset-password`,
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || "https://shiesty.top"}/auth/reset-password`,
     })
 
     if (error) {

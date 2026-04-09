@@ -13,7 +13,7 @@ export default function Loading() {
           </div>
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-cyan-300">Loading</p>
-            <p className="text-xl font-semibold">bunkerfy.top</p>
+            <p className="text-xl font-semibold">SHiESTY.top</p>
           </div>
         </div>
         <div className="absolute -bottom-6 left-0 right-0 mx-auto flex justify-center">

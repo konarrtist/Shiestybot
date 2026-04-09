@@ -7,7 +7,6 @@ from PIL import Image
 
 # 1. AUTHENTICATION
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
-ai_model = genai.GenerativeModel('gemini-3-flash-preview')
 intents = discord.Intents.all()
 bot = discord.Client(intents=intents)
 

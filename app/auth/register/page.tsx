@@ -154,7 +154,7 @@ export default function RegisterPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Join Bunkerfy</h1>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Join shiesty</h1>
               <p className="text-slate-400 text-sm sm:text-base max-w-sm mx-auto">
                 Create your trader profile and start trading safely with escrow protection.
               </p>
@@ -199,7 +199,7 @@ export default function RegisterPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="trader@bunkerfy.top"
+                    placeholder="trader@shiesty.top"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -299,7 +299,7 @@ export default function RegisterPage() {
 
           {/* Footer */}
           <p className="text-center text-xs text-slate-500 px-4">
-            By creating an account, you agree to follow Bunkerfy's trading safety guidelines.
+            By creating an account, you agree to follow shiesty's trading safety guidelines.
           </p>
         </div>
       </div>

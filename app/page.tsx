@@ -17,7 +17,7 @@ import Link from "next/link"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Bunkerfy - Arc Raiders Trading Hub | #1 Secure Item Exchange",
+  title: "SHiESTY RAiDERS - Arc Raiders Trading Hub | #1 SHiESTY Item Exchange",
   description:
     "Join the largest Arc Raiders trading community. Trade blueprints, mods, salvaged gear & resources safely with escrow protection. 5000+ trades completed. Start trading now!",
   keywords: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "Arc Raiders items",
     "Arc Raiders blueprints",
     "safe trading",
-    "escrow protection",
+    "SHiESTY RAiDERS protection",
   ],
 }
 
@@ -53,8 +53,8 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div>
-                  <span className="text-lg sm:text-xl font-bold text-white">bunkerfy.top</span>
-                  <p className="text-xs text-slate-400 hidden sm:block">Arc Raiders Trading Hub</p>
+                  <span className="text-lg sm:text-xl font-bold text-white">SHiESTY.top</span>
+                  <p className="text-xs text-slate-400 hidden sm:block">SHiESTY Raiders Trading Hub</p>
                 </div>
               </div>
               <Link href="/auth/login">
@@ -138,7 +138,7 @@ export default function HomePage() {
           >
             <div className="text-center mb-12">
               <h2 id="features-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-                Why Trade Arc Raiders Items on Bunkerfy?
+                Why Trade Arc Raiders Items on SHiESTY?
               </h2>
               <p className="text-slate-400 max-w-2xl mx-auto">
                 Built by Raiders, for Raiders. Our platform offers the safest way to exchange in-game items.
@@ -293,20 +293,20 @@ export default function HomePage() {
               <div className="relative text-center space-y-4 sm:space-y-6">
                 <Users className="h-12 w-12 sm:h-16 sm:w-16 text-[#00d9ff] mx-auto" aria-hidden="true" />
                 <h2 id="cta-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-                  Join the Arc Raiders Trading Community
+                  Join the SHiESTY Raiders Trading Community
                 </h2>
                 <p className="text-sm sm:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto px-4">
                   Thousands of Raiders exchange items daily. Blueprints, mods, salvaged gear - find what you need and
                   trade safely.
                 </p>
-                <Link href="/auth/login">
-                  <Button
-                    size="lg"
-                    className="h-12 px-8 bg-[#00d9ff] hover:bg-[#00b8d4] text-black font-semibold arc-glow"
-                  >
-                    Start Trading Now
-                  </Button>
-                </Link>
+<Link href="Https://discord.gg/TGX2C6SPk" target="_blank">
+  <Button
+    size="lg"
+    className="h-12 px-8 bg-[#00d9ff] hover:bg-[#00b8d4] text-black font-semibold arc-glow"
+  >
+    Enter the SHiESTY Discord
+  </Button>
+</Link>
               </div>
             </div>
           </section>
@@ -374,7 +374,7 @@ export default function HomePage() {
                     <li className="flex items-start gap-3 text-slate-300 text-sm">
                       <CheckCircle2 className="h-5 w-5 text-emerald-400 mt-0.5 shrink-0" aria-hidden="true" />
                       <span>
-                        No data or in-game items are insured by bunkerfy.top, its contributors, or hosting providers.
+                        No data or in-game items are insured by SHiESTY.SHiESTY🔻RAiDERS, its contributors, or hosting providers.
                       </span>
                     </li>
                     <li className="flex items-start gap-3 text-slate-300 text-sm">
@@ -393,7 +393,7 @@ export default function HomePage() {
                   </p>
                   <p className="text-sm text-amber-50 leading-relaxed">
                     By continuing you acknowledge that this platform is a community fan app for Arc Raiders. You release
-                    bunkerfy.top and its contributors from liability for losses, downtime, or misunderstandings that
+                    SHiESTY and its contributors from liability for losses, downtime, or misunderstandings that
                     could occur while coordinating trades.
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -419,7 +419,7 @@ export default function HomePage() {
               <div>
                 <div className="flex items-center gap-2 mb-4">
                   <Package className="h-5 w-5 text-[#00d9ff]" aria-hidden="true" />
-                  <span className="font-bold text-white">Bunkerfy</span>
+                  <span className="font-bold text-white">SHiESTY</span>
                 </div>
                 <p className="text-slate-400 text-sm">
                   The #1 community marketplace for Arc Raiders item trading with escrow protection.
@@ -474,7 +474,7 @@ export default function HomePage() {
             </div>
             <div className="border-t border-slate-800 pt-8 space-y-2 text-center">
               <p className="text-slate-500 text-xs sm:text-sm">
-                © 2025 bunkerfy.top - Arc Raiders Secure Item Trading Platform
+                © 2026 SHiESTY.top - Arc Raiders Secure Item Trading Platform
               </p>
               <p className="text-slate-600 text-[11px] sm:text-xs">
                 Unofficial fan app made by the community for fellow Arc Raiders. Not affiliated with Embark Studios.

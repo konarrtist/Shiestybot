@@ -87,8 +87,8 @@ export async function POST(request: NextRequest) {
             },
           ],
           footer: {
-            text: "Bunkerfy Analytics",
-            icon_url: "https://bunkerfy.top/icon-dark-32x32.png",
+            text: "shiesty Analytics",
+            icon_url: "https://shiesty.top/icon-dark-32x32.png",
           },
           timestamp: new Date().toISOString(),
         },

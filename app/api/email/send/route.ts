@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
             emailContent = emailTemplates.tradeCompleted(
               data.buyerName || data.sellerName || "your partner",
               data.listingTitle,
-              data.profileUrl || "https://bunkerfy.top/dashboard/transactions",
+              data.profileUrl || "https://shiesty.top/dashboard/transactions",
             )
 
             // Send to both parties
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
             emailContent = emailTemplates.tradeCancelled(
               data.cancellerName || "A trader",
               data.listingTitle,
-              `https://bunkerfy.top/dashboard/transactions/${data.transactionId}`,
+              `https://shiesty.top/dashboard/transactions/${data.transactionId}`,
             )
           }
         }
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
           const emails = [buyerProfile?.email, sellerProfile?.email].filter(Boolean) as string[]
 
           if (emails.length > 0) {
-            emailContent = emailTemplates.tradeExpired(data.listingTitle, "https://bunkerfy.top/dashboard/marketplace")
+            emailContent = emailTemplates.tradeExpired(data.listingTitle, "https://shiesty.top/dashboard/marketplace")
 
             // Send to both parties
             for (const email of emails) {
