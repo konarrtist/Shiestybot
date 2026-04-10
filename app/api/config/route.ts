@@ -1,3 +1,7 @@
+'use client'; 
+export const runtime = 'edge';
+
+// rest of your code...
 import { NextResponse } from "next/server";
 export async function GET() {
   // We add '|| ""' so it splits an empty string instead of crashing if the variable is missing
