@@ -1,7 +1,4 @@
 import { NextResponse } from "next/server";
-
-export const runtime = 'edge'; // Crucial for Cloudflare!
-
 export async function GET() {
   // We add '|| ""' so it splits an empty string instead of crashing if the variable is missing
   const superAdmins = (process.env.SUPER_ADMIN_USERNAMES || process.env.NEXT_PUBLIC_SUPER_ADMIN_USERNAMES || "");
