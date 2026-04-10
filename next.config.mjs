@@ -1,15 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Turbopack is now stable in Next.js 16 and belongs here
-  turbopack: {
-    // You can add custom rules here if needed
-  },
+  // Move turbopack to the top level for Next.js 16
+  turbopack: {},
 
   experimental: {
-    // Keep this empty for now to avoid the 'Unrecognized key' warning
+    // Keep this empty to stop the 'Unrecognized key' error
   },
 
-  // Recommended: helps with build sizes on Vercel
   reactStrictMode: true,
 };
 
