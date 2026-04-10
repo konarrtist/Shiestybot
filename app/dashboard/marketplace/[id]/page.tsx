@@ -83,9 +83,9 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
           </div>
         </div>
 
-        {/* Right Column: Actions */}
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sticky top-24">
+        {/* Right Column: Pricing and Actions */}
+        <div className="space-y-6">
+          <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
             <div className="mb-6">
               <p className="text-sm text-slate-500 mb-1">Price</p>
               <p className="text-3xl font-bold text-slate-900">
