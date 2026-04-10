@@ -20,7 +20,6 @@ import {
 import Link from "next/link"
 import type { Metadata } from "next"
 
-export const metadata: Metadata = {
   title: "SHiESTY RAiDERS - Arc Raiders Trading Hub | #1 SHiESTY Item Exchange",
   description:
     "Join the largest Arc Raiders trading community. Trade blueprints, mods, salvaged gear & resources safely with escrow protection. 5000+ trades completed. Start trading now!",
