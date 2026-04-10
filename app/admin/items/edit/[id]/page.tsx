@@ -1,31 +1,24 @@
 import { notFound, redirect } from "next/navigation"
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ItemForm } from "@/components/admin/item-form"
 import { createClient } from "@/lib/supabase/server"
 import { createServiceRoleClient } from "@/lib/supabase/admin"
 import { deriveRole } from "@/lib/utils/roles"
 
-type EditItemPageParams = {
-  id: string
-}
-
+// This is the specific fix for Next.js 15/16 type errors
 interface EditItemPageProps {
-  params: EditItemPageParams | Promise<EditItemPageParams>
+  params: Promise<{ id: string }>
 }
 
 export const dynamic = "force-dynamic"
 
 export default async function EditItemPage({ params }: EditItemPageProps) {
-  const resolvedParams =
-    typeof (params as Promise<EditItemPageParams>).then === "function"
-      ? await params
-      : params
-
+  // We must await the params promise directly
+  const resolvedParams = await params
   const itemId = resolvedParams?.id
 
   if (!itemId) {
-    console.error("Missing item id for admin item edit", { params: resolvedParams })
+    console.error("Missing item id for admin item edit")
     notFound()
   }
 
@@ -33,7 +26,7 @@ export default async function EditItemPage({ params }: EditItemPageProps) {
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(itemId)
 
   if (!isValidUuid) {
-    console.error("Invalid item id for admin item edit", { params: resolvedParams })
+    console.error("Invalid item id for admin item edit", { itemId })
     notFound()
   }
 
