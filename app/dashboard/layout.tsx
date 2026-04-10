@@ -1,50 +1,28 @@
-import type React from "react"
-import { redirect } from "next/navigation"
-import { createClient } from "@/lib/supabase/server"
-import { Sidebar } from "@/components/layout/sidebar"
-import { MobileNav } from "@/components/layout/mobile-nav"
-import { DashboardHeader } from "@/components/layout/dashboard-header"
-import { deriveRole } from "@/lib/utils/roles"
+// This line tells Cloudflare to use its fast Edge network
+export const runtime = 'edge'; 
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const supabase = await createClient()
-
-  const {
-    data: { session },
-    error: sessionError,
-  } = await supabase.auth.getSession()
-
-  if (sessionError || !session?.user) {
-    redirect("/auth/login")
-  }
-
-  const user = session.user
-
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
-
-  if (!profile) {
-    redirect("/auth/login")
-  }
-
-  const profileWithRole = {
-    ...profile,
-    role: deriveRole({ role: profile.role, username: profile.username }),
-  }
-
   return (
-    <div className="flex min-h-screen bg-slate-950">
-      <div className="hidden md:block">
-        <Sidebar profile={profileWithRole} />
-      </div>
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <DashboardHeader profile={profileWithRole} />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 md:pb-6 min-h-0">{children}</main>
-        <MobileNav profile={profileWithRole} />
+    <div className="flex min-h-screen flex-col bg-black text-white">
+      <header className="border-b border-zinc-800 p-4">
+        <h1 className="text-xl font-bold">SHiESTY DASHBOARD</h1>
+      </header>
+      <div className="flex flex-1">
+        <aside className="w-64 border-r border-zinc-800 p-4">
+          {/* Navigation links go here */}
+          <nav className="space-y-2">
+            <p className="text-zinc-500">Main Menu</p>
+            <div className="rounded bg-zinc-900 p-2">Marketplace</div>
+          </nav>
+        </aside>
+        <main className="flex-1 p-6">
+          {children}
+        </main>
       </div>
     </div>
-  )
+  );
 }
