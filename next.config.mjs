@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // This empty object silences the Turbopack error
-  experimental: {
-    turbopack: {},
+  // Move Turbopack to the root level if you need custom rules.
+  // If you don't have custom rules, you can delete this block entirely.
+  turbopack: {
+    // any custom rules go here
   },
-  // If you had other settings here, keep them, but add the block above
+
+  experimental: {
+    // Only put newer experimental features here. 
+    // Do NOT put 'turbopack' or 'turbo' here.
+  },
 };
 
 export default nextConfig;
