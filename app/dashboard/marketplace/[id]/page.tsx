@@ -1,88 +1,127 @@
-import { createClient } from "@/lib/supabase/server"
-import { notFound, redirect } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Package, Shield, Clock, TrendingUp } from "lucide-react"
-import { InitiateTradeButton } from "@/components/marketplace/initiate-trade-button"
-import { SellerReviews } from "@/components/reviews/seller-reviews"
-import { enrichTradeItems } from "@/lib/utils/trade-items"
-import { SendMessageButton } from "@/components/profile/send-message-button"
+import { createClient } from "@/utils/supabase/server";
+import { notFound } from "next/navigation";
+import { InitiateTradeButton } from "@/components/trades/initiate-trade-button";
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft, ShieldCheck, MapPin, Clock } from "lucide-react";
+import { use } from "react";
 
-export default async function ListingDetailPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
-  const { id } = await params
-  const supabase = await createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
+export default async function ListingPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const supabase = await createClient();
 
   const { data: listing } = await supabase
     .from("listings")
     .select(`
       *,
-      seller:profiles!listings_seller_id_fkey(
-        id,
-        display_name,
-        discord_username,
-        discord_avatar,
-        avatar_url,
-        created_at
-      )
+      seller:profiles(id, display_name, avatar_url)
     `)
     .eq("id", id)
-    .single()
+    .single();
 
   if (!listing) {
-    notFound()
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
+        <div className="text-center">
+          <div className="text-6xl md:text-7xl mb-4">📦</div>
+          <p className="text-slate-500">Listing not found</p>
+          <Link href="/dashboard/marketplace" className="text-blue-600 hover:underline mt-4 block">
+            Back to Marketplace
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  const rarityColors: Record<string, string> = {
-    common: "bg-gray-500/10 text-gray-400 border-gray-500/20",
-    uncommon: "bg-green-500/10 text-green-400 border-green-500/20",
-    rare: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    epic: "bg-pink-500/10 text-pink-400 border-pink-500/20",
-    legendary: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-  }
-
-  const tradeItems = await enrichTradeItems(supabase, listing.payment_methods)
-  const [{ data: sellerReviews }, { data: sellerTransactions }] = await Promise.all([
-    supabase.from("reviews").select("rating").eq("reviewed_id", listing.seller_id),
-    supabase
-      .from("transactions")
-      .select("status")
-      .or(`buyer_id.eq.${listing.seller_id},seller_id.eq.${listing.seller_id}`),
-  ])
-
-  const averageRating =
-    sellerReviews && sellerReviews.length > 0
-      ? sellerReviews.reduce((acc, r) => acc + r.rating, 0) / sellerReviews.length
-      : 0
-
-  const totalTrades = sellerTransactions?.length || 0
-  const successfulTrades = sellerTransactions?.filter((t) => t.status === "completed").length || 0
-  const successRate = totalTrades > 0 ? Math.round((successfulTrades / totalTrades) * 100) : 0
-
-  const isOwnListing = listing.seller_id === user.id
+  const { data: { user } } = await supabase.auth.getUser();
+  const isOwnListing = user?.id === listing.seller_id;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 p-4 md:p-0">
-      <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="bg-slate-900/50 border-slate-800">
-          <CardContent className="p-0">
-            <div className="aspect-square bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 relative flex items-center justify-center">
-              {listing.item_icon_url ? (
-                <img
-                  src={listing.item_icon_url || "/placeholder.svg"}
-                  alt={listing.blueprint_name}
-                  className="w-24 md:w-32 h-24 md:h-32 object-contain drop-shadow-2xl"
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <Link
+        href="/dashboard/marketplace"
+        className="flex items-center text-sm text-slate-500 hover:text-slate-800 mb-6 transition-colors"
+      >
+        <ChevronLeft className="w-4 h-4 mr-1" />
+        Back to Marketplace
+      </Link>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left Column: Image and Details */}
+        <div className="lg:col-span-2 space-y-8">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+            {listing.image_url ? (
+              <Image
+                src={listing.image_url}
+                alt={listing.title}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-slate-400">
+                No image available
+              </div>
+            )}
+          </div>
+
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 mb-4">{listing.title}</h1>
+            <div className="flex flex-wrap gap-4 text-sm text-slate-500 mb-6">
+              <span className="flex items-center">
+                <MapPin className="w-4 h-4 mr-1" />
+                {listing.location || "Global"}
+              </span>
+              <span className="flex items-center">
+                <Clock className="w-4 h-4 mr-1" />
+                Posted {new Date(listing.created_at).toLocaleDateString()}
+              </span>
+            </div>
+            <div className="prose prose-slate max-w-none">
+              <h3 className="text-lg font-semibold mb-2">Description</h3>
+              <p className="whitespace-pre-wrap text-slate-600">{listing.description}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Actions */}
+        <div className="lg:col-span-1">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sticky top-24">
+            <div className="mb-6">
+              <p className="text-sm text-slate-500 mb-1">Price</p>
+              <p className="text-3xl font-bold text-slate-900">
+                ${listing.price} <span className="text-lg font-normal text-slate-500">Raider Dollars</span>
+              </p>
+            </div>
+
+            {!isOwnListing && listing.status === "active" && (
+              <div className="space-y-3">
+                <InitiateTradeButton
+                  listingId={listing.id}
+                  sellerId={listing.seller_id}
+                  sellerName={listing.seller.display_name}
+                  listingTitle={listing.title}
                 />
-              ) : (
-                <div className="text-center">
-                  <div className="text-6xl md:text-7xl mb-4">📦</div>
-                  <p className="text-slate-500">{listing.
+                <div className="flex items-center justify-center gap-2 text-xs text-slate-400 mt-4">
+                  <ShieldCheck className="w-4 h-4 text-green-500" />
+                  Secure trade powered by SHiESTY
+                </div>
+              </div>
+            )}
+
+            {isOwnListing && (
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 text-center">
+                <p className="text-sm font-medium text-slate-600">This is your listing</p>
+              </div>
+            )}
+            
+            {listing.status !== "active" && !isOwnListing && (
+              <div className="p-4 bg-red-50 rounded-lg border border-red-100 text-center">
+                <p className="text-sm font-medium text-red-600">This listing is no longer active</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
