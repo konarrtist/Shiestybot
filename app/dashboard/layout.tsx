@@ -1,29 +1,50 @@
-// Force this segment to run on Cloudflare's Edge
-export const runtime = "edge";
+import type React from "react"
+import { redirect } from "next/navigation"
+import { createClient } from "@/lib/supabase/server"
+import { Sidebar } from "@/components/layout/sidebar"
+import { MobileNav } from "@/components/layout/mobile-nav"
+import { DashboardHeader } from "@/components/layout/dashboard-header"
+import { deriveRole } from "@/lib/utils/roles"
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return (
-    <div className="flex min-h-screen">
-      {/* Sidebar for SHiESTY RAiDERS */}
-      <aside className="w-64 border-r border-zinc-800 bg-zinc-950 p-6 hidden md:block">
-        <h2 className="mb-8 text-xl font-bold tracking-tighter text-red-500">
-          SHiESTY OPS
-        </h2>
-        <nav className="space-y-4">
-          <div className="text-sm font-medium text-zinc-400">Inventory</div>
-          <div className="text-sm font-medium text-zinc-400">Blueprints</div>
-          <div className="text-sm font-medium text-zinc-400">Trade Hub</div>
-        </nav>
-      </aside>
+  const supabase = await createClient()
 
-      {/* Main Content Area */}
-      <main className="flex-1 bg-black p-8">
-        {children}
-      </main>
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession()
+
+  if (sessionError || !session?.user) {
+    redirect("/auth/login")
+  }
+
+  const user = session.user
+
+  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
+
+  if (!profile) {
+    redirect("/auth/login")
+  }
+
+  const profileWithRole = {
+    ...profile,
+    role: deriveRole({ role: profile.role, username: profile.username }),
+  }
+
+  return (
+    <div className="flex min-h-screen bg-slate-950">
+      <div className="hidden md:block">
+        <Sidebar profile={profileWithRole} />
+      </div>
+      <div className="flex flex-1 flex-col overflow-hidden">
+        <DashboardHeader profile={profileWithRole} />
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 pb-20 md:pb-6 min-h-0">{children}</main>
+        <MobileNav profile={profileWithRole} />
+      </div>
     </div>
-  );
+  )
 }
