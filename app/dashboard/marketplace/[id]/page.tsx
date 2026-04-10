@@ -1,6 +1,6 @@
-import { createClient } from "../../../utils/supabase/server";
+import { createClient } from "@/Utils/supabase/server";
 import { notFound } from "next/navigation";
-import { InitiateTradeButton } from "../../../components/trades/initiate-trade-button";
+import { InitiateTradeButton } from "@/Components/trades/initiate-trade-button";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ShieldCheck, MapPin, Clock } from "lucide-react";
