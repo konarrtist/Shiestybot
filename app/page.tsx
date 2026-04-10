@@ -1,3 +1,7 @@
+'use client'; 
+export const runtime = 'edge';
+
+// rest of your code...
 import { Button } from "@/components/ui/button"
 import {
   Shield,
